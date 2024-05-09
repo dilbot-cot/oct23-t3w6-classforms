@@ -9,17 +9,29 @@ export default class SocialCardParent extends React.Component{
 
 
         this.state = {
-            currentlyEditing: false,
+            currentlyEditing: true,
             content: "Default content",
             imageUrl: ""
         }
     }
 
+    updateStateProperty = (targetStateKey, newStateValue) => {
+        this.setState({
+            [targetStateKey]: newStateValue
+        })
+    }
+
+    toggleEditMode = () => {
+        this.setState({currentlyEditing: !this.state.currentlyEditing});
+    }
+
+
+
     render(){
         if (this.state.currentlyEditing) {
-            return <SocialCardForm content={this.state.content} imageUrl={this.state.imageUrl} togleEditMode=""/>
+            return <SocialCardForm toggleEditMode={this.toggleEditMode} setParentState={this.updateStateProperty} content={this.state.content} imageUrl={this.state.imageUrl} />
         } else {
-            return <SocialCardDisplay content={this.state.content} imageUrl={this.state.imageUrl} togleEditMode=""/>
+            return <SocialCardDisplay toggleEditMode={this.toggleEditMode} content={this.state.content} imageUrl={this.state.imageUrl} />
         }
 
     }
